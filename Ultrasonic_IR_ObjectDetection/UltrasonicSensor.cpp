@@ -1,5 +1,3 @@
-
-
 //#include <HCSR04.h>
 #include "Headers/UltrasonicSensor.h"
 
