@@ -10,31 +10,21 @@
  */
 
 #include "Line_sensor.hpp"
-#include "const.hpp"
-#include <avr/interrupt.h>
-// #include "Line_sensor.cpp"
-
 
 void setup()
 {
-    // Vars for debouncing
-    currTime = 0;
-    prevTime = 0;
-
-    // Sensor State Vars - Default start at low
-    leftLine = LOW;
-    midLine = LOW;
-    rightLine = LOW;
     Serial.begin(115200);
 
-    // // Set pins as inputs
-    // pinMode(line.LineLeft, INPUT_PULLUP);
-    // pinMode(line.LineMid, INPUT_PULLUP);
-    // pinMode(line.LineRight, INPUT_PULLUP);
-
+    printf("Setup");
+    setup_sensor();
     updateSide();
 }
 
 void loop()
 {
+  // printf("Loop\n");
+  if(getFlag()){
+    printf("Line side: %d", getFlag());
+    setFlag(0);
+  }
 }
