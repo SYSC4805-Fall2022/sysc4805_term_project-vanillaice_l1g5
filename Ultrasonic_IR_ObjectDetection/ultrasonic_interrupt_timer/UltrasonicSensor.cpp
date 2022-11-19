@@ -1,15 +1,19 @@
-//#include <Arduino.h>
-//#include <sam3x8e.h>
-
+#include "UltrasonicSensor.hpp"
 #define TRIG_PIN 2
 #define ECHO_PIN A7
 #define ULTRASONIC_BOUND 11.000000
+
 volatile uint32_t CaptureCountA;
 volatile double CaptureCountB;
-volatile boolean CaptureFlag;
+volatile int CaptureFlag;
 
-void setup()
-{
+//constructor
+UltrasonicSensor::UltrasonicSensor(int id){
+  id_code = id;
+}
+
+//starts timer based interrupt
+void UltrasonicSensor::setupTimer(){
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
   // put your setup code here, to run once:
@@ -39,33 +43,35 @@ void setup()
   NVIC_EnableIRQ(TC1_IRQn);                  // Enable TC1 interrupts
 }
 
-void loop()
-{
-  if (CaptureFlag)
-  {
-    CaptureFlag = 0; // Reset the flag,
-    //printf("L1, Group11: \r %f cm \n", 340.0 * CaptureCountA / (42000000.0) / 2 * 100);
-    printf("L1, Group11: \r %f cm \n", CaptureCountB); 
-  }
+double UltrasonicSensor::convertCaptureCountA(volatile uint32_t temp){
+  return 340.0 * temp / (42000000.0) / 2 * 100;
 }
 
-void TC1_Handler()
+//return distance in cm
+float UltrasonicSensor::getDistCM()
 {
-  uint32_t status = TC0->TC_CHANNEL[1].TC_SR; // Read status register, Clear status
-  if (status & TC_SR_LDRAS)
-  {                                           // If ISR is fired by LDRAS then ....
-    //CaptureCountA = convertCaptureCountA(); // read TC_RA
-    CaptureCountA = TC0->TC_CHANNEL[1].TC_RA;
-    CaptureCountB = convertCaptureCountA();
-    
-    if (CaptureCountB < ULTRASONIC_BOUND){
-       printf("CaptureCountB is less than 11 cm \n");
-       CaptureFlag = 1;// Inform the main loop of an update.
-    }
-    
-  }
+  return CaptureCountB;
 }
 
-double convertCaptureCountA(){
-  return 340.0 * CaptureCountA / (42000000.0) / 2 * 100;
+//sets flag
+int UltrasonicSensor::getCaptureFlag(){
+  return CaptureFlag;
 }
+
+//resets flag
+void UltrasonicSensor::resetCaptureFlag(){
+  CaptureFlag = 0;
+}
+
+uint32_t UltrasonicSensor::getCaptureCountA(){
+  return CaptureCountA;
+}
+
+void UltrasonicSensor::setCaptureCountA(uint32_t val){
+  CaptureCountA = val;
+}
+
+float UltrasonicSensor::setCaptureCountB(float val){
+  CaptureCountB = val;
+}
+
