@@ -22,9 +22,9 @@ void setup()
 
 void loop()
 {
-  // printf("Loop\n");
   if(getFlag()){
-    printf("Line side: %d", getFlag());
+    // printf("\tLine side: "); printf(getSide()); printf("\n");
+    printf("Output: %d/n", getSide());
     setFlag(0);
   }
 }
