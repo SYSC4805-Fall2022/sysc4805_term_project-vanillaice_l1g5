@@ -5,7 +5,6 @@
 // Functions
 void updateSide();
 void setup_sensor();
-void setup_timer();
 static void LeftSensorISR();
 static void MidSensorISR();
 static void RightSensorISR();

@@ -16,17 +16,6 @@ uint32_t prevTime;
 // Line State
 enum lineSide currSide;
 
-void setup_timer() {
-  PMC->PMC_PCER0 |= PMC_PCER0_PID29;                         // TC2 instance ID
-  TC0->TC_CHANNEL[2].TC_CMR = TC_CMR_TCCLKS_TIMER_CLOCK2     // capture mode, MCK/2, horloge sur front montant
-                              | TC_CMR_ABETRG                // TIOA1 utilisé en déclencheur
-                              | TC_CMR_LDRA_FALLING          // Chargement RA sur front montant
-                              | TC_CMR_LDRB_RISING;          // Chargement RB sur front descendant
-  TC0->TC_CHANNEL[2].TC_IER |= TC_IER_LDRAS | TC_IER_LDRBS;  // interruption sur chargement de RA ou RB
-  TC0->TC_CHANNEL[2].TC_CCR = TC_CCR_SWTRG | TC_CCR_CLKEN;   // Déclenchement logiciel et clock enable (start)
-  NVIC_EnableIRQ(TC2_IRQn);
-}
-
 void setup_sensor() {
   // Vars for debouncing
   currTime = 0;
