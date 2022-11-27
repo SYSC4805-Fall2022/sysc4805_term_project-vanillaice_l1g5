@@ -1,5 +1,6 @@
 #include "Motor_Control.h"
 #include "Line_sensor.hpp"
+boolean side = true;
 
 // Setup
 void setup() {
@@ -18,20 +19,57 @@ void setup() {
 
 void loop() {
 
-  moveForwardTimed();
+  // moveForwardTimed();
 
-  stop();
-  delay(500);
+  // stop();
+  // delay(500);
 
-  turnLeft();
-  delay(leftDelay);
+  // turnLeft();
+  // delay(leftDelay);
 
-  stop();
-  delay(3000);
+  // stop();
+  // delay(3000);
 
-  turnRight();
-  delay(rightDelay);
+  // turnRight();
+  // delay(rightDelay);
 
-  stop();
-  delay(3000);
+  // stop();
+  // delay(3000);
+
+  //new code
+  if (getSide_Left == FORWARD && getSide_Right == FORWARD){
+    if (side){
+      turnRight(); 
+      if ((getSide_Left != FORWARD) && (getSide_Right != FORWARD)){
+        //check for obstacle
+        moveForwardTimed();
+        turnRight();
+        side = false;
+        break;
+      }
+      else {
+        turnRight();
+        break;
+      }
+    }
+    else {
+      turnLeft();
+      if (getSide_Left != FORWARD && getSide_Right != FORWARD){
+        //check for obstacle
+        moveForwardTimed(); 
+        turnLeft();
+        side = true;
+        break;
+      }
+      else{
+        turnLeft(); 
+        break;
+      }
+    }
+  }
+  else {
+    //check for obstacle 
+    moveForward();
+  }
+
 }
