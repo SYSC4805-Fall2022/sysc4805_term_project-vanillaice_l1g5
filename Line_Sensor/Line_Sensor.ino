@@ -17,14 +17,14 @@ void setup()
 
     printf("Setup");
     setup_sensor();
-    updateSide();
+    updateSide_left();
 }
 
 void loop()
 {
-  if(getFlag()){
+  if(getFlag_Left()){
     // printf("\tLine side: "); printf(getSide()); printf("\n");
-    printf("Output: %d/n", getSide());
-    setFlag(0);
+    printf("Output: %d/n", getSide_Left());
+    setFlag_Left(0);
   }
 }
