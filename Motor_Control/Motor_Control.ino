@@ -19,34 +19,29 @@ void setup() {
 
 void loop() {
 
-  // Use getSide like this 
   if (getSide_Left() == FORWARD && getSide_Right() == FORWARD){
     if (side){
       turnRight(); 
-      if ((getSide_Left != FORWARD) && (getSide_Right != FORWARD)){ // can't use getSide like this
+      if (getSide_Left() != FORWARD && getSide_Right() != FORWARD){ 
         //check for obstacle
         moveForwardTimed();
         turnRight();
         side = false;
-        break;
       }
       else {
         turnRight();
-        break;
       }
     }
     else {
       turnLeft();
-      if (getSide_Left != FORWARD && getSide_Right != FORWARD){
+      if (getSide_Left() != FORWARD && getSide_Right() != FORWARD){
         //check for obstacle
         moveForwardTimed(); 
         turnLeft();
         side = true;
-        break;
       }
       else{
         turnLeft(); 
-        break;
       }
     }
   }
