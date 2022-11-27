@@ -15,7 +15,6 @@ void setup()
 {
     Serial.begin(115200);
 
-    printf("Setup");
     setup_sensor();
     updateSide_left();
 }
