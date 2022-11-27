@@ -18,8 +18,7 @@ void setup() {
 
 void loop() {
 
-  moveForward();
-  delay(forwardDelay);
+  moveForwardTimed();
 
   stop();
   delay(500);
@@ -35,22 +34,4 @@ void loop() {
 
   stop();
   delay(3000);
-
-  // // put your main code here, to run repeatedly:
-  // if (getSide_Left() != NONE) {
-  //   turnRight();
-  //   moveForward(the short one);
-  //   turnRight();
-  //   side = False;
-  //   break;
-
-  // }
-
-  // else if (getSide_Right() != NONE) {
-  //   turnLeft();
-  //   moveForward(the short one);
-  //   turnLeft();
-  //   side = True;
-  //   break;
-  // }
 }
