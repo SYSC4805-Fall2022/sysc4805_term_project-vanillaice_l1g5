@@ -19,28 +19,11 @@ void setup() {
 
 void loop() {
 
-  // moveForwardTimed();
-
-  // stop();
-  // delay(500);
-
-  // turnLeft();
-  // delay(leftDelay);
-
-  // stop();
-  // delay(3000);
-
-  // turnRight();
-  // delay(rightDelay);
-
-  // stop();
-  // delay(3000);
-
-  //new code
-  if (getSide_Left == FORWARD && getSide_Right == FORWARD){
+  // Use getSide like this 
+  if (getSide_Left() == FORWARD && getSide_Right() == FORWARD){
     if (side){
       turnRight(); 
-      if ((getSide_Left != FORWARD) && (getSide_Right != FORWARD)){
+      if ((getSide_Left != FORWARD) && (getSide_Right != FORWARD)){ // can't use getSide like this
         //check for obstacle
         moveForwardTimed();
         turnRight();

@@ -167,7 +167,7 @@ void setFlag_Left(int flag)
   changeFlag_Left = flag;
 }
 
-int getSide_Left()
+lineSide getSide_Left()
 {
   return currSide_left;
 }
@@ -269,7 +269,7 @@ void setFlag_Right(int flag)
   changeFlag_Right = flag;
 }
 
-int getSide_Right()
+lineSide getSide_Right()
 {
   return currSide_right;
 }
