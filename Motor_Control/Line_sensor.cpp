@@ -67,9 +67,9 @@ void setup_sensor()
   pinMode(Right_LineRight, INPUT_PULLUP);
 
   // Attach Interrupts
-  attachInterrupt(Right_LineLeft, LeftSensorISR_Left, CHANGE);
-  attachInterrupt(Right_LineMid, MidSensorISR_Left, CHANGE);
-  attachInterrupt(Right_LineRight, RightSensorISR_Left, CHANGE);
+  attachInterrupt(Right_LineLeft, LeftSensorISR_Right, CHANGE);
+  attachInterrupt(Right_LineMid, MidSensorISR_Right, CHANGE);
+  attachInterrupt(Right_LineRight, RightSensorISR_Right, CHANGE);
 }
 
 /**
@@ -122,6 +122,21 @@ static void RightSensorISR_Left()
   }
 }
 
+int getFlag_Left()
+{
+  return changeFlag_Left;
+}
+
+void setFlag_Left(int flag)
+{
+  changeFlag_Left = flag;
+}
+
+lineSide getSide_Left()
+{
+  return currSide_left;
+}
+
 /**
  * Update side based on where the line is detected. Side is an element of state enum.
  *
@@ -157,20 +172,7 @@ void updateSide_left()
   }
 }
 
-int getFlag_Left()
-{
-  return changeFlag_Left;
-}
 
-void setFlag_Left(int flag)
-{
-  changeFlag_Left = flag;
-}
-
-lineSide getSide_Left()
-{
-  return currSide_left;
-}
 
 // Right Side Line Sensor
 
@@ -181,7 +183,6 @@ lineSide getSide_Left()
 static void LeftSensorISR_Right()
 {
   currTime_Right = millis();
-
   // If left side sensor triggered, flip curr state
   if ((uint32_t)(currTime_Right - prevTime_Right) > DEBOUNCER)
   {
@@ -200,7 +201,7 @@ static void MidSensorISR_Right()
   currTime_Right = millis();
   // If middle sensor triggered, flip curr state
   if ((uint32_t)(currTime_Right - prevTime_Right) > DEBOUNCER)
-  {
+  { 
     prevTime_Right = currTime_Right;
     right_midLine = digitalRead(Right_LineMid);
     updateSide_right();
@@ -214,7 +215,6 @@ static void MidSensorISR_Right()
 static void RightSensorISR_Right()
 {
   currTime_Right = millis();
-
   // If right side sensor triggered, flip curr state
   if ((uint32_t)(currTime_Right - prevTime_Right) > DEBOUNCER)
   {

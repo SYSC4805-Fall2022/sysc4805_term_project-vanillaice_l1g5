@@ -40,7 +40,7 @@ static void MidSensorISR_Right();
 static void RightSensorISR_Right();
 void updateSide_right();
 int getFlag_Right();
-void setFlag_Right(int flag);
+void setFlag_Right(int);
 lineSide getSide_Right();
 
 
