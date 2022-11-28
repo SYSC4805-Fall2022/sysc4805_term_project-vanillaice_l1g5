@@ -1,6 +1,6 @@
 #include "UltrasonicSensor.h"
 #include <DueTimer.h>
-#define ULTRASONIC_THRESH 11.000000
+#define ULTRASONIC_THRESH 11.0000000
 
 
 //HCSR04 hc(4, 5); //initialisation class HCSR04 (trig pin , echo pin)
@@ -21,20 +21,18 @@ void UltrasonicHandler(){
 
 void setup()
 {
-  Timer.getAvailable().attachInterrupt(UltrasonicHandler).start(1000); // Every 1000 micro sec
+  Serial.begin(9600);
+  Timer.getAvailable().attachInterrupt(UltrasonicHandler).start(60000); // Every 1000 micro sec
 }
 
 void loop()
 {
-    Serial.begin(115200);
     if(US_FLAG_RIGHT){
       US_FLAG_RIGHT = 0;
-      printf("Object Detected at \r %f cm \n", US1.getDistCM());
-
+      printf("Object Detected on right side at %f cm \n", US1.getDistCM());
     }
     if(US_FLAG_LEFT){
       US_FLAG_LEFT = 0;
-      printf("Object Detected at \r %f cm \n", US2.getDistCM());
+      printf("Object Detected on left side at %f cm \n", US2.getDistCM());
     }
-    delay(90);                   // we suggest to use over 60ms measurement cycle, in order to prevent trigger signal to the echo signal.
 }
