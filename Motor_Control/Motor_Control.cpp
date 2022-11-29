@@ -82,7 +82,7 @@ void moveBackward()
 /*
  * Turn vehicle right for a set amount of time
  */
-void turnLeft()
+void turnRight()
 {
     digitalWrite(RSM_DIR, DIR_REV); // Set Right Motors to move in reverse
     digitalWrite(LSM_DIR, DIR_FOR); // Set Left Motors to move forward
@@ -95,7 +95,7 @@ void turnLeft()
     analogWrite(EN_PIN, MOT_EN);
 
     // Turn until 90° time has passed
-    while (end - start < leftDelay)
+    while (end - start < rightDelay)
     {
         end = millis();
     }
@@ -103,13 +103,22 @@ void turnLeft()
     // Done turning
     stop();
 
+    
+    start = millis();
+    end = start;
+    // Turn until 90° time has passed
+    while (end - start < 200)
+    {
+        end = millis();
+    }
+
     return;
 }
 
 /*
  * Turn vehicle right 90°
  */
-void turnRight()
+void turnLeft()
 {
     digitalWrite(RSM_DIR, DIR_FOR); // Set Right Motors to move forward
     digitalWrite(LSM_DIR, DIR_REV); // Set Left Motors to move in reverse
@@ -122,13 +131,21 @@ void turnRight()
     analogWrite(EN_PIN, MOT_EN);
 
     // Turn until 90° time has passed
-    while (end - start < rightDelay)
+    while (end - start < leftDelay)
     {
         end = millis();
     }
 
     // Done turning
     stop();
+
+    start = millis();
+    end = start;
+    // Turn until 90° time has passed
+    while (end - start < 200)
+    {
+        end = millis();
+    }
 
     return;
 }

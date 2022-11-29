@@ -1,10 +1,9 @@
 #include "Motor_Control.h"
 #include "Line_sensor.hpp"
-boolean side = true;
+boolean turnSide = false;
 
 // Setup
-void setup()
-{
+void setup() {
   Serial.begin(115200);
 
   // Set up Line sensors
@@ -17,12 +16,24 @@ void setup()
 }
 
 // Loop
+// void loop(){
+//   turnRight();
+//   delay(500);
 
-void loop()
-{
+//   stop();
+//   delay(500);
+// }
 
-  if (getFlag_Left() || getFlag_Right())
-  {
+
+void loop() {
+
+  // if (getFlag_Left())
+  //   printf("Flag left\n");
+
+  // if (getFlag_Right())
+  // printf("Flag right\n");
+
+  if (getFlag_Left() || getFlag_Right()) {
     printf("Left Sensor: ");
     printf(currSideText(getSide_Left()));
     printf("\t Right Sensor: ");
@@ -33,76 +44,64 @@ void loop()
     setFlag_Left(0);
     setFlag_Right(0);
 
-    if (getSide_Right() != NONE && getSide_Left() != NONE)
-    {
-      printf("Line detected! Turning!");
-      if (side)
-      {
-        printf("Turning right");
+    if (getSide_Right() != NONE && getSide_Left() != NONE) {
+      printf("Line detected! Turning!\n");
+      if (turnSide) {
+        printf("Turning right\n");
         turnRight();
-        if ( getSide_Left() == NONE && getSide_Right() == NONE)
-        {
+        if (getSide_Right() != NONE && getSide_Left() != NONE) {  //getSide_Left() == NONE && getSide_Right() == NONE
+          printf("oop more lines \n");
+          turnRight();
+        } else {
           // Check for obstacle
           moveForwardTimed();
+          printf("Completed moveForwardTimed \n");
           turnRight();
 
-          side = false;
+          turnSide = false;
         }
-        else
-        {
-          printf("oop more lines");
-          turnRight();
-        }
-      }
-      else
-      {
-        printf("Turning left");
+      } else {
+        // printf("Turning left\n");
         turnLeft();
-        if ( getSide_Left() == NONE && getSide_Right() == NONE)
-        {
+        if (!(getSide_Right() != NONE && getSide_Left() != NONE)) {  //== NONE
           // check for obstacle
           moveForwardTimed();
+          // printf("Completed moveForwardTimed \n");
           turnLeft();
-          side = true;
-        }
-        else
-        {
-          printf("oop still more lines");
+          turnSide = true;
+        } else {
+          // printf("oop still more lines\n");
           turnLeft();
         }
       }
     }
-  }
-  else
-  {
+  } else {
     // check for obstacle
-    //  moveForward();
-    stop(); // For testing reasons only
+    moveForward();
+    // stop();  // For testing reasons only
   }
   delay(300);
 }
 
-char *currSideText(lineSide side)
-{
+char *currSideText(lineSide side) {
   char *output = "";
 
-  switch (side)
-  {
-  case NONE:
-    output = "None";
-    break;
-  case LEFT:
-    output = "Left";
-    break;
-  case MIDDLE:
-    output = "Mid";
-    break;
-  case RIGHT:
-    output = "Right";
-    break;
-  case FORWARD:
-    output = "Forward";
-    break;
+  switch (side) {
+    case NONE:
+      output = "None";
+      break;
+    case LEFT:
+      output = "Left";
+      break;
+    case MIDDLE:
+      output = "Mid";
+      break;
+    case RIGHT:
+      output = "Right";
+      break;
+    case FORWARD:
+      output = "Forward";
+      break;
   }
 
   return output;

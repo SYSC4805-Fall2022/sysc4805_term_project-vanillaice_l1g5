@@ -81,10 +81,11 @@ static void LeftSensorISR_Left()
   currTime_Left = millis();
 
   // If left side sensor triggered, flip curr state
-  if ((uint32_t)(currTime_Left - prevTime_Left) > DEBOUNCER)
+  if ((uint32_t)(currTime_Left - prevTime_Left) > DEBOUNCER && ~changeFlag_Left)
   {
     prevTime_Left = currTime_Left;
     left_leftLine = digitalRead(Left_LineLeft);
+    printf("LeftSensorISR_Left\n");
     updateSide_left();
   }
 }
@@ -97,10 +98,11 @@ static void MidSensorISR_Left()
 {
   currTime_Left = millis();
   // If middle sensor triggered, flip curr state
-  if ((uint32_t)(currTime_Left - prevTime_Left) > DEBOUNCER)
+  if (((uint32_t)(currTime_Left - prevTime_Left) > DEBOUNCER) && ~changeFlag_Left)
   {
     prevTime_Left = currTime_Left;
     left_midLine = digitalRead(Left_LineMid);
+    printf("MidSensorISR_Left\n");
     updateSide_left();
   }
 }
@@ -114,10 +116,11 @@ static void RightSensorISR_Left()
   currTime_Left = millis();
 
   // If right side sensor triggered, flip curr state
-  if ((uint32_t)(currTime_Left - prevTime_Left) > DEBOUNCER)
+  if ((uint32_t)(currTime_Left - prevTime_Left) > DEBOUNCER && ~changeFlag_Left)
   {
     prevTime_Left = currTime_Left;
     left_rightLine = digitalRead(Left_LineRight);
+    printf("RightSensorISR_Left\n");
     updateSide_left();
   }
 }
@@ -150,22 +153,22 @@ void updateSide_left()
     currSide_left = FORWARD;
     return;
   }
-  else if ((left_leftLine == 0) && (left_midLine == 1) && (left_rightLine == 0))
+  else if (left_midLine == 1)
   {
     currSide_left = MIDDLE;
     return;
   }
-  else if ((left_leftLine == 1) && (left_midLine == 0) && (left_rightLine == 0))
+  else if (left_leftLine == 1)
   {
     currSide_left = LEFT;
     return;
   }
-  else if ((left_leftLine == 0) && (left_midLine == 0) && (left_rightLine == 1))
+  else if (left_rightLine == 1)
   {
     currSide_left = RIGHT;
     return;
   }
-  else if ((left_leftLine == 0) && (left_midLine == 0) && (left_rightLine == 0))
+  else
   {
     currSide_left = NONE;
     return;
@@ -184,10 +187,11 @@ static void LeftSensorISR_Right()
 {
   currTime_Right = millis();
   // If left side sensor triggered, flip curr state
-  if ((uint32_t)(currTime_Right - prevTime_Right) > DEBOUNCER)
+  if ((uint32_t)(currTime_Right - prevTime_Right) > DEBOUNCER && ~changeFlag_Right)
   {
     prevTime_Right = currTime_Right;
     right_leftLine = digitalRead(Right_LineLeft);
+    printf("LeftSensorISR_Right\n");
     updateSide_right();
   }
 }
@@ -200,11 +204,12 @@ static void MidSensorISR_Right()
 {
   currTime_Right = millis();
   // If middle sensor triggered, flip curr state
-  if ((uint32_t)(currTime_Right - prevTime_Right) > DEBOUNCER)
+  if ((uint32_t)(currTime_Right - prevTime_Right) > DEBOUNCER && ~changeFlag_Right)
   { 
     prevTime_Right = currTime_Right;
     right_midLine = digitalRead(Right_LineMid);
     updateSide_right();
+    printf("MidSensorISR_Right\n");
   }
 }
 
@@ -216,10 +221,11 @@ static void RightSensorISR_Right()
 {
   currTime_Right = millis();
   // If right side sensor triggered, flip curr state
-  if ((uint32_t)(currTime_Right - prevTime_Right) > DEBOUNCER)
+  if ((uint32_t)(currTime_Right - prevTime_Right) > DEBOUNCER && ~changeFlag_Right)
   {
     prevTime_Right = currTime_Right;
     right_rightLine = digitalRead(Right_LineRight);
+    printf("RightSensorISR_Right()\n");
     updateSide_right();
   }
 }
@@ -237,22 +243,22 @@ void updateSide_right()
     currSide_right = FORWARD;
     return;
   }
-  else if ((right_leftLine == 0) && (right_midLine == 1) && (right_rightLine == 0))
+  else if (right_midLine == 1)
   {
     currSide_right = MIDDLE;
     return;
   }
-  else if ((right_leftLine == 1) && (right_midLine == 0) && (right_rightLine == 0))
+  else if (right_leftLine == 1)
   {
     currSide_right = LEFT;
     return;
   }
-  else if ((right_leftLine == 0) && (right_midLine == 0) && (right_rightLine == 1))
+  else if (right_rightLine == 1)
   {
     currSide_right = RIGHT;
     return;
   }
-  else if ((right_leftLine == 0) && (right_midLine == 0) && (right_rightLine == 0))
+  else 
   {
     currSide_right = NONE;
     return;
