@@ -48,8 +48,6 @@ void loop()
     // Reset change flags
     setLineFlag(0);
 
-    printf("Side: %d\n", getSide());
-
     moveForward(); // Line avoided, move forward
   }
   else
@@ -77,7 +75,6 @@ void avoidLine()
   // Check if line is still there
   if (getSide() > LINE_THRESHOLD)
   {
-    printf("Side: %d\n", getSide());
 
     // Stop if line found
     stop();
