@@ -13,9 +13,7 @@ const int Right_LineLeft = A9;
 const int Right_LineRight = A11;
 const int Right_LineMid = A10;
 
-const int LINE_THRESHOLD = 850; // Threshold for line sensor analog read diff between dark and light
-
-// Data Structures
+const int LINE_THRESHOLD = 900; // Threshold for line sensor analog read diff between dark and light
 
 // Line state enum
 enum lineSide {
@@ -32,18 +30,15 @@ void readLine();
 char *currSideText(lineSide);
 void setLineFlag(int);
 int getLineFlag();
+void resetSensorVals();
 
 // Left sensor Functions
-static void LeftSensorISR_Left();
 static void MidSensorISR_Left();
-static void RightSensorISR_Left();
-int getSide_Left();
+int getSide();
 
 // Right sensor functions
-static void LeftSensorISR_Right();
 static void MidSensorISR_Right();
 static void RightSensorISR_Right();
-int getSide_Right();
 
 
 

@@ -2,7 +2,8 @@
 #define ULTRASONIC_H
 #include <HCSR04.h> // Add as reference to report
 
-const int FORWARD_TIME = 1000;
+// Constants
+#define ULTRASONIC_THRESH 20.00
 
 class UltrasonicSensor{
    public:

@@ -69,13 +69,26 @@ void moveForwardTimed(){
 /*
  * Move backwards constantly
  */
-void moveBackward()
+void moveBackwardTimed()
 {
     digitalWrite(RSM_DIR, DIR_REV); // Set Right Motors to move in reverse
     digitalWrite(LSM_DIR, DIR_REV); // Set Left Motors to move in reverse
 
+    //Timing vars - local
+    unsigned long start = millis();
+    unsigned long end = start;
+
     // Enable all motors
     analogWrite(EN_PIN, MOT_EN);
+
+    // Turn until forward move time has passed
+    while (end - start < forwardDelay)
+    {
+        end = millis();
+    }
+    analogWrite(EN_PIN, MOT_DA);
+    digitalWrite(RSM_DIR, DIR_FOR); // Set Right Motors to move forward
+    digitalWrite(LSM_DIR, DIR_FOR); // Set Left Motors to move forward
     return;
 }
 
@@ -102,16 +115,6 @@ void turnRight()
 
     // Done turning
     stop();
-
-    
-    start = millis();
-    end = start;
-    // Turn until 90° time has passed
-    while (end - start < rightDelay)
-    {
-        end = millis();
-    }
-
     return;
 }
 
