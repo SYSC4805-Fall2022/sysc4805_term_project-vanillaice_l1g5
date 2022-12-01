@@ -107,7 +107,7 @@ void turnRight()
     start = millis();
     end = start;
     // Turn until 90° time has passed
-    while (end - start < 200)
+    while (end - start < rightDelay)
     {
         end = millis();
     }
