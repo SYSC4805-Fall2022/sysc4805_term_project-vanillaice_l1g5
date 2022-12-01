@@ -18,13 +18,15 @@ void setup()
 
 void loop()
 {
+  // Delete before demo
   // printf("Left Left : %d\n", analogRead(Left_LineLeft));
   // printf("Left Right : %d\n",analogRead(Left_LineRight));
   printf("Left Mid : %d\n", analogRead(Left_LineMid));
   // printf("Right Left : %d\n",analogRead(Right_LineLeft));
   printf("Right Right : %d\n", analogRead(Right_LineRight));
   printf("Right Mid : %d\n", analogRead(Right_LineMid));
-  delay(200);
+  delay(200); // TODO: delete before demo, here so it doesn't print 400 times a second
+
   if (getLineFlag())
   {
     // Reset change flags
@@ -32,6 +34,7 @@ void loop()
     avoidLine();
     nonBlockWait(300);
   }
+  
 }
 
 void avoidLine()
@@ -79,7 +82,23 @@ void avoidLine()
   {
     moveForward();
   }
+}
 
+void nonBlockWait(uint32_t delay)
+{
+  // Timing vars - local
+  unsigned long start = millis();
+  unsigned long end = start;
+
+  // Turn until forward move time has passed
+  while (end - start < delay)
+  {
+    end = millis();
+  }
+}
+
+
+// Here in case sensors magically start working
   //   if (getSide_Right() > LINE_THRESHOLD || getSide_Left() > LINE_THRESHOLD)
   //   {
   //     stop();
@@ -138,17 +157,3 @@ void avoidLine()
   //   {
   //     moveForward();
   //   }
-}
-
-void nonBlockWait(uint32_t delay)
-{
-  // Timing vars - local
-  unsigned long start = millis();
-  unsigned long end = start;
-
-  // Turn until forward move time has passed
-  while (end - start < delay)
-  {
-    end = millis();
-  }
-}
