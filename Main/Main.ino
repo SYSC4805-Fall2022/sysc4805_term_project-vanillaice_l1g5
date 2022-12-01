@@ -17,10 +17,14 @@ volatile boolean turnCheck = true;
 UltrasonicSensor US1(4, 5); // left ultrasonic sensor
 UltrasonicSensor US2(6, 7); // right ultrasonic sensor
 
+void watchdogSetup(){}
+
 // Setup
 void setup()
 {
   Serial.begin(115200);
+
+  watchDogEnable(2000);
 
   // Set up ultrasonic sensors
   Timer.getAvailable().attachInterrupt(UltrasonicHandler).start(60000); // Every 60 ms, check ultrasonic sensors
@@ -35,6 +39,7 @@ void setup()
 // Main loop
 void loop()
 {
+  watchdogReset();
   if (getLineFlag())
   { 
     // Check if line detected
