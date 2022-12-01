@@ -2,7 +2,7 @@
 #define MOTOR_CONTROL_H
 #include <Arduino.h>
 
-const uint32_t DEBOUNCER = 250; // Debouncer value default: 250 ms
+const uint32_t DEBOUNCER = 150; // Debouncer value default: 250 ms
 
 // Motor Pin Layout
 const int LSM_DIR = 44; // Left side motors - Direction Pin
