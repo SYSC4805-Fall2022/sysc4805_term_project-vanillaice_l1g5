@@ -2,21 +2,22 @@
 #define LINE_SENSOR_H
 #include <Arduino.h>
 
-// Constants 
+// Constants
 
-// Pin definitions
-const int Left_LineLeft = A6;   // Left Line Sensor on Pin 51
-const int Left_LineRight = A7;  // Right Line Sensor on Pin 52
-const int Left_LineMid = A5;    // Middle Line Sensor on Pin 53
+// Pin definitions on both sides
+const int Left_LineLeft = A6;  // Left Line Sensor on Pin 51
+const int Left_LineRight = A7; // Right Line Sensor on Pin 52
+const int Left_LineMid = A5;   // Middle Line Sensor on Pin 53
 
-const int Right_LineLeft = A9; 
-const int Right_LineRight = A11;
-const int Right_LineMid = A10;
+const int Right_LineLeft = A9;   // Left Line Sensor on Pin 51
+const int Right_LineRight = A11; // Right Line Sensor on Pin 52
+const int Right_LineMid = A10;   // Middle Line Sensor on Pin 53
 
 const int LINE_THRESHOLD = 900; // Threshold for line sensor analog read diff between dark and light
 
 // Line state enum
-enum lineSide {
+enum lineSide
+{
   NONE,
   LEFT,
   MIDDLE,
@@ -25,7 +26,7 @@ enum lineSide {
 };
 
 // Common Functions
-void setup_sensor();
+void setup_sensor(); // Sensor setup function, set defaults and intialize vars
 void readLine();
 char *currSideText(lineSide);
 void setLineFlag(int);
@@ -39,7 +40,5 @@ int getSide();
 // Right sensor functions
 static void MidSensorISR_Right();
 static void RightSensorISR_Right();
-
-
 
 #endif

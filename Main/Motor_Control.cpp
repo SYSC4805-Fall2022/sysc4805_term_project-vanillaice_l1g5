@@ -3,6 +3,8 @@
 
 /**
  * Setup Cytron Board
+ * 
+ * Set up default values, set pin outputs 
  */
 void setupMotor()
 {
@@ -28,7 +30,7 @@ void stop()
 }
 
 /*
- * Move forward constantly
+ * Move forward constantly, used as de
  */
 void moveForward()
 {

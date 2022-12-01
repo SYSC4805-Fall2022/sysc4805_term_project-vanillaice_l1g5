@@ -121,13 +121,11 @@ void UltrasonicHandler() {
 
   if (US_DIST_RIGHT < ULTRASONIC_THRESH && US_DIST_RIGHT > 0.0 && !US_FLAG_RIGHT) {
     US_FLAG_RIGHT = 1;
-    printf("object at %f on right \n", US_DIST_RIGHT);
   }
   US_DIST_LEFT = US1.getDistCM();
 
   if (US_DIST_LEFT < ULTRASONIC_THRESH && US_DIST_LEFT > 0.0 && !US_FLAG_LEFT) {
     US_FLAG_LEFT = 1;
-    printf("object at %f on left \n", US_DIST_LEFT);
   }
 }
 
@@ -138,24 +136,19 @@ void avoidObject() {
     stop();
     nonBlockWait(150);
 
-    printf("Seeing object on right\n");
-
     turnLeft();  // turn left to avoid
     stop();
     nonBlockWait(150);
 
     moveForwardTimed();
-    printf("done right\n");
     US_FLAG_RIGHT = 0;
 
     return;
   } else if (US_FLAG_LEFT) {  // object on left
-    printf("Seeing object on left\n");
     turnRight();
     stop();
     nonBlockWait(150);
     moveForwardTimed();
-    printf("avoided object left\n");
     US_FLAG_LEFT = 0;
 
     return;
