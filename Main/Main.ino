@@ -24,7 +24,7 @@ void setup()
 {
   Serial.begin(115200);
 
-  watchDogEnable(2000);
+  watchdogEnable(2000);
 
   // Set up ultrasonic sensors
   Timer.getAvailable().attachInterrupt(UltrasonicHandler).start(60000); // Every 60 ms, check ultrasonic sensors
